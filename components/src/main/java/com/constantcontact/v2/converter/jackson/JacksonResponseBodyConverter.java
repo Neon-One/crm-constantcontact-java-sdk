@@ -12,7 +12,7 @@
 
 package com.constantcontact.v2.converter.jackson;
 
-import com.fasterxml.jackson.databind.ObjectReader;
+import tools.jackson.databind.ObjectReader;
 import okhttp3.ResponseBody;
 import retrofit2.Converter;
 

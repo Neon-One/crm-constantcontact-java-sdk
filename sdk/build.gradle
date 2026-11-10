@@ -14,7 +14,7 @@ dependencies {
     compile project(':components')
 }
 
-archivesBaseName = 'java-sdk'
+archivesBaseName = 'constantcontact-java-sdk'
 
 task sourceJar(type: Jar, dependsOn: classes) {
     classifier = 'sources'

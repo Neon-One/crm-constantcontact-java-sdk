@@ -12,9 +12,13 @@
 
 package com.constantcontact.v2.converter.jackson;
 
-import com.fasterxml.jackson.databind.*;
-import com.fasterxml.jackson.databind.ser.impl.SimpleBeanPropertyFilter;
-import com.fasterxml.jackson.databind.ser.impl.SimpleFilterProvider;
+import tools.jackson.databind.JavaType;
+import tools.jackson.databind.ObjectMapper;
+import tools.jackson.databind.ObjectReader;
+import tools.jackson.databind.ObjectWriter;
+import tools.jackson.databind.cfg.DateTimeFeature;
+import tools.jackson.databind.ser.std.SimpleBeanPropertyFilter;
+import tools.jackson.databind.ser.std.SimpleFilterProvider;
 import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
 import retrofit2.Converter;
@@ -85,9 +89,10 @@ public class JacksonConverterFactory extends Converter.Factory {
         if (mapper == null) {
             throw new NullPointerException("mapper == null");
         }
-        this.mapper = mapper;
-        mapper.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS).disable(SerializationFeature.WRITE_DATE_KEYS_AS_TIMESTAMPS);
-        mapper.getSerializationConfig().with(ISO_8601_DATE_FORMAT);
+        this.mapper = mapper.rebuild()
+                .disable(DateTimeFeature.WRITE_DATES_AS_TIMESTAMPS)
+                .disable(DateTimeFeature.WRITE_DATE_KEYS_AS_TIMESTAMPS)
+                .build();
 
         final SimpleBeanPropertyFilter campaignCreateUpdateFilter = SimpleBeanPropertyFilter.filterOutAllExcept(CAMPAIGN_CREATE_UPDATE_FIELDS);
         this.writerFilterProvider = new SimpleFilterProvider().addFilter("CampaignCreateUpdateFilter", campaignCreateUpdateFilter);

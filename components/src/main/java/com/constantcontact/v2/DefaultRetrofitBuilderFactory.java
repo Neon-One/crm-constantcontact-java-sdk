@@ -13,7 +13,7 @@
 package com.constantcontact.v2;
 
 import com.constantcontact.v2.converter.jackson.JacksonConverterFactory;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import tools.jackson.databind.ObjectMapper;
 import okhttp3.OkHttpClient;
 import retrofit2.Retrofit;
 
